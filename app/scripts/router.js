@@ -6,34 +6,36 @@ import Note from './models/note';
 import Session from './models/session';
 import Login from './views/login';
 import renderRegister from './views/register';
-import NewNote from '/.views/newnote';
+import NewNote from './views/newnote';
 import Nav from './views/nav';
 import NavContainer from './views/navview';
+import NotesList from './views/allnotes';
 
 let session = new Session();
 let note = new Note();
+let notes = new Notes();
 let container = $('.container');
 
 $(document).ajaxSend((evt, xhr, opts) => {
-    console.log('ajaxSend', opts);
-    xhr.setRequestHeader('application-id', config.appId);
-    xhr.setRequestHeader('secret-key', config.secret);
+    // console.log('ajaxSend', opts);
+    xhr.setRequestHeader('application-id', secret.appId);
+    xhr.setRequestHeader('secret-key', secret.secret);
     xhr.setRequestHeader('application-type', 'REST');
     xhr.setRequestHeader('user-token', session.get('user-token'));
 });
 
 const Router = Backbone.Router.extend({
     routes: {
-        '': 'login',
+        ''        : 'login',
         'register': 'register',
-        'notes': 'notes',
-        'notes/create': 'createNote'
+        'notes'   : 'notes',
+        // 'notes/create': 'createNote'
     },
     protectedRoute() {
         if (session.get('user-token')) {
             return true;
         } else {
-            this.navigate('login', {
+            this.navigate('', {
                 trigger: true
             });
             return false;
@@ -67,39 +69,54 @@ const Router = Backbone.Router.extend({
                 trigger: true
             });
         } else {
-            container.empty();
-            container.append(renderRegister(session));
+          container.empty();
+          let registerForm = new renderRegister({
+            session: session,
+            router: this,
+            model: session
+          });
+          var registerPage = new NavContainer({
+            model: session,
+            children: [registerForm]
+          });
+          registerPage.render();
+          container.append(registerPage.el);
         }
     },
     notes() {
         if (this.protectedRoute()) {
-            posts.fetch();
             container.empty();
-            var notesList = new NotesList({
-                collection: notes
+            notes.fetch();
+            // this.navigate('notes', {trigger: true});
+            var noteForm = new NewNote({
+                collection: notes,
+                model: session,
+                session: session,
+                router: this
             });
             var notesPage = new NavContainer({
                 model: session,
-                children: [notesList]
+                children: [noteForm, new NotesList({collection: notes})]
             });
+            console.log(session);
             notesPage.render();
             container.append(notesPage.el);
         }
     },
-    createNote() {
-        if (this.protectedRoute()) {
-            container.empty();
-            var noteForm = new NoteForm({
-                collection: notes
-            });
-            var newNotePage = new NavContainer({
-                model: session,
-                children: [noteForm]
-            });
-            newNotePage.render();
-            container.append(newNotePage.el);
-        }
-    }
+//     createNote() {
+//         if (this.protectedRoute()) {
+//             container.empty();
+//             var noteForm = new NewNote({
+//                 collection: notes
+//             });
+//             var newNotePage = new NavContainer({
+//                 model: session,
+//                 children: [noteForm]
+//             });
+//             newNotePage.render();
+//             container.append(newNotePage.el);
+//         }
+//     }
 });
 
 const router = new Router();

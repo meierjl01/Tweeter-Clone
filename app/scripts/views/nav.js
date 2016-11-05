@@ -10,12 +10,12 @@ export default Backbone.View.extend({
         let data = `<a href="#notes">Read Notes</a>`;
         if (this.model.get('user-token')) {
             data += `
-          <a href="#notes/create">Wite a note</a>
+          <a href="#notes/create">Write a note</a>
           <input type="button" id="logout" value="Log Out">
       `;
         } else {
             data += `
-          <a href="#login">Log In</a>
+          <a href="#">Log In</a>
           <a href="#register">Register Now</a>
       `;
         }

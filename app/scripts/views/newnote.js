@@ -8,7 +8,7 @@ export default Backbone.View.extend({
         return `
       <textarea id="body" placeholder="Write Your Note Here..."></textarea>
       <input type="submit" value="Publish">
-    `
+    `;
   },
     render() {
       this.$el.append(this.template());
@@ -19,6 +19,7 @@ export default Backbone.View.extend({
     publish(e) {
       e.preventDefault();
       const body = this.$('#body').val();
-      this.collection.create({body})
+      const email = this.model.get('email');
+      this.collection.create({body, email});
     }
 });

@@ -12,13 +12,15 @@ export default Backbone.View.extend({
         nav.render();
         this.$el.append(nav.el);
         this.children.forEach((child, i, arr) => {
-            //remember to do one for colleciton and one for model, just in case -- ask for clarification about this from Jess as to why
+            //remember to do one for colleciton and one for model, just in case --
             if (child.collection) {
                 child.collection.on('update', () => {
+                    child.$el.empty();
                     child.render();
                 });
             }
             if (child.model) {
+              // console.log('child of nav container: ', child);
                 child.model.on('change', () => {
                     child.render();
                 });

@@ -7,11 +7,11 @@ export default Backbone.Model.extend({
     initialize() {
         if (window.localStorage.getItem('user-token')) {
             this.set('user-token', window.localStorage.getItem('user-token'));
+            this.set('email', window.localStorage.getItem('email'));
         }
     },
     idAttribute: 'objectId',
     defaults: {
-        username: '',
         email: '',
         'user-token': ''
     },
@@ -24,8 +24,8 @@ export default Backbone.Model.extend({
             email,
             password
         }, {
-            url: 'https://api.backendless.com/v1/user/register',
-            success: () => {
+            url: 'https://api.backendless.com/v1/users/register',
+            success: (response) => {
                 this.login(email, password);
                 router.navigate('notes', {
                     trigger: true
@@ -34,11 +34,15 @@ export default Backbone.Model.extend({
         });
     },
 login(email, password) {
-  this.save({login: email,password},
+  this.save({login: email, password},
     {
-      url: 'http://api.backendless.com/v1/user/login',
-      success: (response) => {
-        this.set(response);
+      url: 'http://api.backendless.com/v1/users/login',
+      success: (model, response) => {
+        // this.set(response);
+        console.log(response);
+        console.log(response['user-token']);
+        window.localStorage.setItem('user-token', response['user-token']);
+        window.localStorage.setItem('email', response.email);
         router.navigate('notes', {trigger: true});
       },
       error: () => {
@@ -46,6 +50,17 @@ login(email, password) {
       }
     }
   );
+},
+
+logout() {
+  $.ajax({
+    url: 'https://api.backendless.com/v1/users/logout',
+    success: () => {
+      this.clear();
+      window.localStorage.clear();
+      router.navigate('', {trigger: true});
+    }
+  });
 }
 
 });
