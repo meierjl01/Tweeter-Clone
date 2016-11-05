@@ -10,6 +10,7 @@ import NewNote from './views/newnote';
 import Nav from './views/nav';
 import NavContainer from './views/navview';
 import NotesList from './views/allnotes';
+import Home from './views/home';
 
 let session = new Session();
 let note = new Note();
@@ -26,10 +27,12 @@ $(document).ajaxSend((evt, xhr, opts) => {
 
 const Router = Backbone.Router.extend({
     routes: {
-        ''        : 'login',
-        'register': 'register',
-        'notes'   : 'notes',
-        // 'notes/create': 'createNote'
+        ''          : 'home',
+        'login'     : 'login',
+        'register'  : 'register',
+        'notes'     : 'notes',
+        'myprofile' : 'profile',
+
     },
     protectedRoute() {
         if (session.get('user-token')) {
@@ -40,6 +43,24 @@ const Router = Backbone.Router.extend({
             });
             return false;
         }
+    },
+
+    home() {
+      if (session.get('user-token')) {
+        this.navigate('notes', {
+          trigger: true
+        });
+      } else {
+        container.empty();
+        let homeForm = new Home({
+        });
+        var homePage = new NavContainer({
+          model: session,
+          children: [homeForm]
+        });
+        homePage.render();
+        container.append(homePage.el);
+      }
     },
 
     login() {
@@ -69,18 +90,18 @@ const Router = Backbone.Router.extend({
                 trigger: true
             });
         } else {
-          container.empty();
-          let registerForm = new renderRegister({
-            session: session,
-            router: this,
-            model: session
-          });
-          var registerPage = new NavContainer({
-            model: session,
-            children: [registerForm]
-          });
-          registerPage.render();
-          container.append(registerPage.el);
+            container.empty();
+            let registerForm = new renderRegister({
+                session: session,
+                router: this,
+                model: session
+            });
+            var registerPage = new NavContainer({
+                model: session,
+                children: [registerForm]
+            });
+            registerPage.render();
+            container.append(registerPage.el);
         }
     },
     notes() {
@@ -96,27 +117,21 @@ const Router = Backbone.Router.extend({
             });
             var notesPage = new NavContainer({
                 model: session,
-                children: [noteForm, new NotesList({collection: notes})]
+                children: [noteForm, new NotesList({
+                    collection: notes
+                })]
             });
             console.log(session);
             notesPage.render();
             container.append(notesPage.el);
         }
     },
-//     createNote() {
-//         if (this.protectedRoute()) {
-//             container.empty();
-//             var noteForm = new NewNote({
-//                 collection: notes
-//             });
-//             var newNotePage = new NavContainer({
-//                 model: session,
-//                 children: [noteForm]
-//             });
-//             newNotePage.render();
-//             container.append(newNotePage.el);
-//         }
-//     }
+    profile() {
+        if (this.protectedRoute()) {
+            container.empty();
+
+        }
+    }
 });
 
 const router = new Router();

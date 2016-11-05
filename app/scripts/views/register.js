@@ -7,9 +7,11 @@ const renderRegister = Backbone.View.extend({
     tagName: 'form',
     template() {
         return `
+        <h2>Welcome to QuikNote!</h2>
+        <div>Please register below</div>
         <input id="email" type="email" placeholder="Your Email">
-        <input id="password" type="password" placeholder="Your Password">
-        <input id="confirmPassword" type="password" placeholder="Confirm Password">
+        <div><input id="password" type="password" placeholder="Your Password"></div>
+        <div><input id="confirmPassword" type="password" placeholder="Confirm Password"></div>
         <input id="register" type="submit" value="Register Now">
     `;
     },

@@ -7,15 +7,15 @@ import Backbone from 'backbone';
 export default Backbone.View.extend({
     tagName: 'nav',
     template() {
-        let data = `<a href="#notes">Read Notes</a>`;
+        let data = ``;
         if (this.model.get('user-token')) {
             data += `
-          <a href="#notes/create">Write a note</a>
+          <a href="#myprofile">View My Profile</a>
           <input type="button" id="logout" value="Log Out">
       `;
         } else {
             data += `
-          <a href="#">Log In</a>
+          <a href="#login">Log In</a>
           <a href="#register">Register Now</a>
       `;
         }

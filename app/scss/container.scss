@@ -1,0 +1,43 @@
+.container {
+  @include outer-container;
+
+  .home {
+    text-align: center;
+    .fa {
+      font-size: 4em;
+      text-align: center;
+      margin: .50em;
+    }
+}
+//form to write a new note:
+    form {
+      @include span-columns(5);
+
+      #body {
+          height: 12em;
+          width: 24em;
+      }
+
+      #publish {
+        background: #FAE0DC;
+        color: #3C3D42;
+        padding: .25em;
+      }
+    }
+
+//list of all of the notes:
+    .note-list {
+      @include span-columns(5);
+      list-style: none;
+      @include clearfix;
+
+      li:before {
+        content: "\0BB \020";
+      }
+
+      li {
+        padding: .5em;
+        margin-left: 0;
+      }
+    }
+}

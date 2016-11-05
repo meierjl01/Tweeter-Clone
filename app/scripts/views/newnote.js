@@ -7,7 +7,7 @@ export default Backbone.View.extend({
     template() {
         return `
       <textarea id="body" placeholder="Write Your Note Here..."></textarea>
-      <input type="submit" value="Publish">
+      <input id="publish" type="submit" value="Publish">
     `;
   },
     render() {
