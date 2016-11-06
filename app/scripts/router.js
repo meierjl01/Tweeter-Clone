@@ -141,10 +141,9 @@ const Router = Backbone.Router.extend({
         });
 
     //need session and notes for the user's notes to show up
-        let noteitem = new NoteItem ({
+        let noteitem = new NotesList({
             collection: notes,
             model: session,
-            router: this
         });
 
     //combine both and also add nav

@@ -11,6 +11,7 @@ export default Backbone.View.extend({
   },
   className: 'profile-info',
   render(){
+    console.log(this.model);
     this.$el.append(this.template());
   }
 });

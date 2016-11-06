@@ -6,6 +6,8 @@ export default Backbone.View.extend({
     tagName: 'form',
     template() {
         return `
+      <h1>QuikNotes</h1>
+      <h3>Add a new QuikNote:</h3>
       <textarea id="body" placeholder="Write Your Note Here..."></textarea>
       <input id="publish" type="submit" value="Publish">
     `;

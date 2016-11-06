@@ -10,7 +10,8 @@ export default Backbone.View.extend({
         let data = ``;
         if (this.model.get('user-token')) {
             data += `
-          <a href="#myprofile">View My Profile</a>
+          <a href="#myprofile">My Profile</a>
+          <a href="#notes">All QuikNotes</a>
           <input type="button" id="logout" value="Log Out">
       `;
         } else {

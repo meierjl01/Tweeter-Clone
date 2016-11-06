@@ -31,6 +31,7 @@ export default Backbone.Model.extend({
             url: 'https://api.backendless.com/v1/users/register',
             success: (response) => {
                 this.login(email, password);
+                window.localStorage.setItem('created', response.created);
                 router.navigate('notes', {
                     trigger: true
                 });
@@ -48,7 +49,6 @@ login(email, password) {
         window.localStorage.setItem('user-token', response['user-token']);
         window.localStorage.setItem('email', response.email);
         window.localStorage.setItem('ownerId', response.ownerId);
-        window.localStorage.setItem('created', response.created);
         router.navigate('notes', {trigger: true});
       },
       error: () => {
