@@ -4,6 +4,7 @@ export default Backbone.Model.extend({
   idAttribute: 'objectId',
     defaults: {
       email: '',
-      body: ''
+      body: '',
+      timestamp: '',
     }
 });

@@ -8,12 +8,16 @@ export default Backbone.Model.extend({
         if (window.localStorage.getItem('user-token')) {
             this.set('user-token', window.localStorage.getItem('user-token'));
             this.set('email', window.localStorage.getItem('email'));
+            this.set('ownerId', window.localStorage.getItem('ownerId'));
+            this.set('created', window.localStorage.getItem('created'));
         }
     },
     idAttribute: 'objectId',
     defaults: {
         email: '',
-        'user-token': ''
+        'user-token': '',
+        ownerId: '',
+        created: ''
     },
     validatePassword(password, confirmPassword) {
         if (password.trim() && pw === confirmPassword) return true;
@@ -43,6 +47,8 @@ login(email, password) {
         console.log(response['user-token']);
         window.localStorage.setItem('user-token', response['user-token']);
         window.localStorage.setItem('email', response.email);
+        window.localStorage.setItem('ownerId', response.ownerId);
+        window.localStorage.setItem('created', response.created);
         router.navigate('notes', {trigger: true});
       },
       error: () => {

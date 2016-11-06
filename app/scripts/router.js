@@ -5,12 +5,16 @@ import Notes from './collections/notes';
 import Note from './models/note';
 import Session from './models/session';
 import Login from './views/login';
+import NoteItem from './views/noteitem';
 import renderRegister from './views/register';
 import NewNote from './views/newnote';
 import Nav from './views/nav';
 import NavContainer from './views/navview';
 import NotesList from './views/allnotes';
 import Home from './views/home';
+import ProfileInfoView from './views/profileview';
+import ProfileNotesView from './views/profilenotesview';
+// import CreateProfile from '.views/createprofile';
 
 let session = new Session();
 let note = new Note();
@@ -121,7 +125,7 @@ const Router = Backbone.Router.extend({
                     collection: notes
                 })]
             });
-            console.log(session);
+            // console.log(session);
             notesPage.render();
             container.append(notesPage.el);
         }
@@ -129,8 +133,27 @@ const Router = Backbone.Router.extend({
     profile() {
         if (this.protectedRoute()) {
             container.empty();
-
+            notes.fetch();
         }
+    //need session for profile information -- how long they've been a user and their email
+        let profileInfo = new ProfileInfoView({
+            model: session,
+        });
+
+    //need session and notes for the user's notes to show up
+        let noteitem = new NoteItem ({
+            collection: notes,
+            model: session,
+            router: this
+        });
+
+    //combine both and also add nav
+        let userProfile = new NavContainer({
+          model: session,
+          children: [profileInfo, noteitem, new ProfileNotesView({collection: notes})]
+        });
+        userProfile.render();
+        container.append(userProfile.el);
     }
 });
 

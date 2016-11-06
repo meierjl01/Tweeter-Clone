@@ -18,6 +18,7 @@ export default Backbone.View.extend({
     },
     publish(e) {
       e.preventDefault();
+      const timestamp = new Date();
       const body = this.$('#body').val();
       const email = this.model.get('email');
       this.collection.create({body, email});
