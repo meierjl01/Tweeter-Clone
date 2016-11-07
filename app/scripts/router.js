@@ -140,16 +140,10 @@ const Router = Backbone.Router.extend({
             model: session,
         });
 
-    //need session and notes for the user's notes to show up
-        let noteitem = new NotesList({
-            collection: notes,
-            model: session,
-        });
-
     //combine both and also add nav
         let userProfile = new NavContainer({
           model: session,
-          children: [profileInfo, noteitem, new ProfileNotesView({collection: notes})]
+          children: [profileInfo, new ProfileNotesView({collection: notes})]
         });
         userProfile.render();
         container.append(userProfile.el);

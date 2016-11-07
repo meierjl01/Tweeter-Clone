@@ -9,12 +9,13 @@ export default Backbone.View.extend({
   tagName: 'ul',
   className: 'profile-notes',
   render(){
+    this.$el.empty();
     this.collection.filter((note, i, arr) =>{
-      if(note.get('ownerId') === window.locationStorage.ownerId){
+      if(note.get('ownerId') === window.localStorage.getItem('ownerId')) {
           let noteitem = new noteItem({model: note});
           noteitem.render();
-          this.$el.append(noteitem.el);
-          return true;
+          this.$el.prepend(noteitem.el);
+          // return true;
       }
     });
   }

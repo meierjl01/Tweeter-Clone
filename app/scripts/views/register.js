@@ -5,6 +5,7 @@ import Backbone from 'backbone';
 
 const renderRegister = Backbone.View.extend({
     tagName: 'form',
+    className: 'register',
     template() {
         return `
         <h2>Welcome to QuikNote!</h2>

@@ -1,20 +1,18 @@
 nav {
   text-align: right;
-  // padding: .5em;
   @include clearfix;
-  // display: inline-block;
 
   a {
     text-decoration: none;
     padding: .5em;
-    color: #3C3D42;
+    font-size: .8em;
+    color: #011936;
   }
 
   #logout {
     margin: 1em;
-    // background: #C78A7F;
-    background: #FAE0DC;
-    color: #3C3D42;
+    background: #EF8354;
+    color: #011936;
     padding: .25em;
   }
 

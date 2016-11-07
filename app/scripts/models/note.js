@@ -5,6 +5,9 @@ export default Backbone.Model.extend({
     defaults: {
       email: '',
       body: '',
-      timestamp: '',
+      created: '',
+    },
+    delete() {
+      this.destroy();
     }
 });

@@ -1,49 +1,100 @@
 .container {
-  @include outer-container;
+    @include outer-container;
 
-  .home {
-    text-align: center;
-    .fa {
-      font-size: 4em;
-      text-align: center;
-      margin: .50em;
+    .home {
+        text-align: center;
+
+        .fa {
+            font-size: 4em;
+            text-align: center;
+            margin: 0.50em;
+        }
     }
-}
-//form to write a new note:
+    //register:
+    .register {
+        input {
+            margin: 1em;
+        }
+        #register {
+            background: #EF8354;
+            color: #011936;
+        }
+    }
+
+    //login:
+    .login {
+        input {
+            margin: 1em;
+        }
+        #login {
+            background: #EF8354;
+            color: #011936;
+        }
+    }
+
+    //form to write a new note:
     form {
-      @include span-columns(5);
+        @include span-columns(5);
 
-      #body {
-          height: 12em;
-          width: 24em;
-      }
+        #body {
+            height: 12em;
+            width: 24em;
+        }
 
-      #publish {
-        background: #FAE0DC;
-        color: #3C3D42;
-        padding: .25em;
-      }
+        #publish {
+            background: #EF8354;
+            color: #011936;
+            padding: 0.25em;
+        }
     }
-
-//list of all of the notes:
+    //list of all of the notes:
     .note-list {
-      @include span-columns(5);
-      list-style: none;
-      @include clearfix;
+        @include span-columns(5);
+        list-style: none;
+        @include clearfix;
 
-      li:before {
-        content: "\0BB \020";
-      }
+        .profile-pic {
+            height: 3em;
+            width: 2em;
+            border: 2px solid #EF8354;
+        }
 
-      li {
-        padding: .5em;
-        margin-left: 0;
-      }
+        button {
+            background: #F9DC5C;
+            margin: 0.25em;
+            font-size: 0.15em;
+        }
+
+        li {
+            padding: 0.5em;
+            margin-bottom: 1em;
+        }
     }
 }
-
 //profile
-  #pic {
-    height:10em;
+
+#pic {
+    height: 10em;
     width: 7em;
+    border: 2px solid #EF8354;
+}
+
+.profile-notes {
+    li {
+        padding: 0.5em;
+        list-style: none;
+            margin-bottom: 1em;
+    }
+
+    img {
+        height: 3em;
+        width: 2em;
+        border: 2px solid #EF8354;
+    }
+
+  button {
+      background: #F9DC5C;
+      margin: 0.25em;
+      font-size: 0.15em;
   }
+}

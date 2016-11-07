@@ -6,7 +6,8 @@ export default Backbone.View.extend({
     tagName: 'form',
     template() {
         return `
-      <h1>QuikNotes</h1>
+      <h1>QuikNotes <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+</h1>
       <h3>Add a new QuikNote:</h3>
       <textarea id="body" placeholder="Write Your Note Here..."></textarea>
       <input id="publish" type="submit" value="Publish">
@@ -23,6 +24,6 @@ export default Backbone.View.extend({
       const timestamp = new Date();
       const body = this.$('#body').val();
       const email = this.model.get('email');
-      this.collection.create({body, email});
+      this.collection.create({timestamp, body, email});
     }
 });

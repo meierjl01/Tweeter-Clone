@@ -3,6 +3,7 @@ import $ from 'jquery';
 
 const Login = Backbone.View.extend({
     tagName: 'form',
+    className: 'login',
     template() {
         return `
         <h2>Welcome to QuikNote!</h2>
